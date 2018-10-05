@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './client/index.js',
@@ -7,12 +8,18 @@ module.exports = {
         filename: 'bundle.js'
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: '/.jsx?$',
-                loader: 'babel-loader',
+                use: {loader: 'babel-loader'},
                 exclude: 'node_modules'
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './client/index.html',
+            inject: "body"
+        })
+    ]
 };
